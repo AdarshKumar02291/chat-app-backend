@@ -24,6 +24,20 @@ userRouter.post("/signup", async (req: any, res: any) => {
   res.status(201).send({ msg: `${name} registered successfully.` });
 });
 
+userRouter.post("/signin", async (req: any, res: any) => {
+  const { name, email } = req.body;
+  const userExists = await db.query.UserTable.findFirst({
+    where: (UserTable, { eq }) => eq(UserTable.email, email),
+  });
+
+  if (userExists) {
+    res.status(201).send({ msg: `${name} Logged in successfully.` });
+  }
+  res.status(409).send({ msg: `user doesnt exists ` });
+});
+
+
+
 
 userRouter.get("/users", async (req: any, res: any) => {
     try {
