@@ -21,32 +21,30 @@ userRouter.post("/signup", async (req: any, res: any) => {
     email: email,
   });
 
-  res.status(201).send({ msg: `${name} registered successfully.` });
+  res.status(201).send({ name: name });
 });
 
 userRouter.post("/signin", async (req: any, res: any) => {
-  const { name, email } = req.body;
+  const {  email } = req.body;
   const userExists = await db.query.UserTable.findFirst({
     where: (UserTable, { eq }) => eq(UserTable.email, email),
   });
 
+  
   if (userExists) {
-    res.status(201).send({ msg: `${name} Logged in successfully.` });
+    return res.status(201).send({ name: userExists.name , email:email });
   }
-  res.status(409).send({ msg: `user doesnt exists ` });
+  return res.status(409).send({ msg: `user doesnt exists ` });
 });
 
-
-
-
 userRouter.get("/users", async (req: any, res: any) => {
-    try {
-       const users = await db.select().from(UserTable);
-  
-      // Respond with the list of users
-      res.status(200).send(users);
-    } catch (error) {
-      console.error("Error fetching users:", error);
-      res.status(500).send({ error: "Internal server error" });
-    }
-  });
+  try {
+    const users = await db.select().from(UserTable);
+
+    // Respond with the list of users
+    res.status(200).send(users);
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    res.status(500).send({ error: "Internal server error" });
+  }
+});

@@ -15,6 +15,13 @@
       "when": 1723736154176,
       "tag": "0001_first_susan_delgado",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1723914784319,
+      "tag": "0002_strong_franklin_storm",
+      "breakpoints": true
     }
   ]
 }
