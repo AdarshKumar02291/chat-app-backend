@@ -2,6 +2,7 @@ import express from "express";
 import "dotenv/config";
 import { userRouter } from "./routes/user";
 import { chatRouter } from "./routes/chat";
+import { messageRouter } from "./routes/message";
 
 const cors = require("cors");
 
@@ -14,7 +15,9 @@ app.get("/api", (req: any, res: any) => {
 
 app.use("/api/v1/user", userRouter);
 
-app.use("/api/v1/chat",chatRouter);
+app.use("/api/v1/chat", chatRouter);
+
+app.use("/api/v1/message", messageRouter);
 
 // async function main() {
 

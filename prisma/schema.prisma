@@ -26,3 +26,11 @@ model Chat {
   members String[]
   time    DateTime @default(now())
 }
+
+
+model Message {
+  chatId Int @unique @default(autoincrement())
+  senderId String
+  text String
+  time    DateTime @default(now())
+}
