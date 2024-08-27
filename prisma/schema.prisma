@@ -22,15 +22,23 @@ model User {
 }
 
 model Chat {
-  id      Int      @id @default(autoincrement())
+  id      Int       @id @default(autoincrement())
   members String[]
-  time    DateTime @default(now())
+  time    DateTime  @default(now())
+
+  // Relations
+  messages Message[]
 }
 
-
 model Message {
-  chatId Int @unique @default(autoincrement())
+  id       Int      @id @default(autoincrement()) // Unique identifier for each message
+  chatId   Int      // Foreign key referencing Chat
   senderId String
-  text String
-  time    DateTime @default(now())
+  text     String
+  time     DateTime @default(now())
+
+  // Relations
+  Chat Chat @relation(fields: [chatId], references: [id])
+
+  @@index([chatId]) // Index to speed up queries by chatId
 }
