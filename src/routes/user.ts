@@ -57,9 +57,9 @@ userRouter.post("/login", async (req: any, res: any) => {
     }
 
     // Verify the password
-    const isPasswordValid = ()=>{
-      return password === user.password
-    }
+    const isPasswordValid = () => {
+      return password === user.password;
+    };
     if (!isPasswordValid()) {
       return res.status(401).json({ msg: "Invalid credentials" });
     }
@@ -78,5 +78,22 @@ userRouter.post("/login", async (req: any, res: any) => {
     });
   } catch (error) {
     return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+userRouter.get("/find/:userId", async (req: any, res: any) => {
+  const userId = parseInt(req.params.userId, 10);
+
+  try {
+    const chats = await prisma.user.findFirst({
+      where: {
+        id: userId,
+      },
+    });
+
+    res.status(200).json(chats);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
