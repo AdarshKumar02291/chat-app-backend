@@ -26,7 +26,7 @@ messageRouter.get("/get_message/:chatId", async (req: any, res: any) => {
   const chatId = parseInt(req.params.chatId, 10);
   console.log(chatId);
   try {
-    const message = await prisma.message.findFirst({
+    const message = await prisma.message.findMany({
       where: {
         chatId,
       },
