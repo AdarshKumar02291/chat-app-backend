@@ -22,8 +22,9 @@ messageRouter.post("/create", async (req: any, res: any) => {
     res.status(500).json(error);
   }
 });
-messageRouter.get("/get_message", async (req: any, res: any) => {
-  const { chatId } = req.body;
+messageRouter.get("/get_message/:chatId", async (req: any, res: any) => {
+  const chatId = parseInt(req.params.chatId, 10);
+  console.log(chatId);
   try {
     const message = await prisma.message.findFirst({
       where: {
